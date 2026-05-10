@@ -2,6 +2,8 @@ export const defaultProfile = {
     name: "",
     bio: "",
     resumeUrl: "",
+    selectedTemplate: "one",
+    mode: "portfolio", // 'portfolio' (website) or 'resume' (A4)
     
     hero: {
         greeting: "Hello, I'm",

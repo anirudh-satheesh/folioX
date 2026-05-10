@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useProfile } from "../context/ProfileContext";
-import { Reorder, motion, AnimatePresence } from "framer-motion";
+import { Reorder, motion } from "framer-motion";
+import ProjectForm from "../components/forms/ProjectForm";
 import { 
   projectSchema, 
   experienceSchema, 
@@ -133,6 +134,50 @@ function Builder() {
 
   return (
     <div className="pb-24">
+      {/* MODE SELECTOR */}
+      <div className="flex bg-gray-100 p-1.5 rounded-2xl mb-8">
+        <button 
+          onClick={() => setProfile({ ...profile, mode: 'portfolio' })}
+          className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all ${profile.mode === 'portfolio' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}
+        >
+          Website
+        </button>
+        <button 
+          onClick={() => setProfile({ ...profile, mode: 'resume' })}
+          className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all ${profile.mode === 'resume' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}
+        >
+          Resume
+        </button>
+      </div>
+
+      {/* TEMPLATE PICKER */}
+      <Section title="Templates" badge="New">
+        <div className="grid grid-cols-2 gap-3">
+          <button 
+            onClick={() => setProfile({ ...profile, selectedTemplate: 'one' })}
+            className={`p-1 rounded-2xl border-2 transition-all ${profile.selectedTemplate === 'one' ? 'border-black' : 'border-transparent'}`}
+          >
+            <div className="aspect-[4/3] bg-gradient-to-br from-gray-900 to-blue-900 rounded-xl flex items-center justify-center">
+              <span className="text-white text-[10px] font-black uppercase">Template One</span>
+            </div>
+          </button>
+          <button 
+            onClick={() => setProfile({ ...profile, selectedTemplate: 'two' })}
+            className={`p-1 rounded-2xl border-2 transition-all ${profile.selectedTemplate === 'two' ? 'border-black' : 'border-transparent'}`}
+          >
+            <div className="aspect-[4/3] bg-white border border-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+               <div className="w-1/3 h-full border-r border-gray-100 bg-gray-50 flex items-center justify-center">
+                 <div className="w-4 h-1 bg-gray-200 rounded-full" />
+               </div>
+               <div className="flex-1 p-2 space-y-1">
+                 <div className="w-full h-1 bg-gray-100 rounded-full" />
+                 <div className="w-2/3 h-1 bg-gray-100 rounded-full" />
+               </div>
+            </div>
+          </button>
+        </div>
+      </Section>
+
       {/* SECTION ORDERING */}
       <Section title="Structure" badge="Drag">
         <Reorder.Group 
@@ -259,18 +304,14 @@ function Builder() {
 
       {/* PROJECTS */}
       <Section title="Portfolio Work">
-        <div className="space-y-3 mb-6">
-          <Input placeholder="Project Title" value={projectInput.title} onChange={(e) => setProjectInput({ ...projectInput, title: e.target.value })} />
-          <TextArea placeholder="What's the impact?" value={projectInput.description} onChange={(e) => setProjectInput({ ...projectInput, description: e.target.value })} />
-          <Input placeholder="Tech Stack (comma separated)" value={projectInput.techStack} onChange={(e) => setProjectInput({ ...projectInput, techStack: e.target.value })} />
-          <Input placeholder="Thumbnail URL" value={projectInput.image} onChange={(e) => setProjectInput({ ...projectInput, image: e.target.value })} />
-          <div className="grid grid-cols-2 gap-2">
-            <Input placeholder="GitHub" value={projectInput.github} onChange={(e) => setProjectInput({ ...projectInput, github: e.target.value })} />
-            <Input placeholder="Live URL" value={projectInput.liveDemo} onChange={(e) => setProjectInput({ ...projectInput, liveDemo: e.target.value })} />
-          </div>
-          <button onClick={handleSaveProject} className="w-full bg-black text-white py-3 rounded-xl font-black text-xs uppercase tracking-widest leading-none">
-            {editingProjectId ? "Update Project" : "Add to Portfolio"}
-          </button>
+        <div className="mb-6">
+          <ProjectForm 
+            value={projectInput}
+            onChange={setProjectInput}
+            onSave={handleSaveProject}
+            onCancel={() => { setEditingProjectId(null); setProjectInput({ ...projectSchema, id: crypto.randomUUID() }); }}
+            isEditing={!!editingProjectId}
+          />
         </div>
         <div className="space-y-2">
           {profile.projects.map(p => (
@@ -327,7 +368,7 @@ function Builder() {
         </div>
         <div className="flex flex-wrap gap-2">
           {profile.socialLinks.map(s => (
-            <div key={s.id} className="bg-gray-50 px-3 py-1.5 rounded-lg text-[10px] font-black border border-gray-100 flex items-center gap-2 uppercase">
+            <div key={s.id} className="bg-gray-50 px-3 py-1.5 rounded-lg text-[10px] font-black border border-gray-100 flex items-center gap-3 uppercase">
               {s.platform}
               <button 
                 onClick={() => setProfile({ ...profile, socialLinks: profile.socialLinks.filter(soc => soc.id !== s.id) })}
