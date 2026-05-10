@@ -6,7 +6,7 @@ function Preview() {
 
   return (
     <div className="min-h-screen p-10">
-      <TemplateOne data={profile} />
+      <TemplateOne profileData={profile} />
     </div>
   );
 }

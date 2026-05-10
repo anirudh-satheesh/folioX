@@ -1,25 +1,22 @@
 import { createContext, useContext, useState } from "react";
+import { defaultProfile } from "../data/defaultProfile";
 
-const ProfileContext = createContext();
+export const ProfileContext = createContext();
 
-export function ProfileProvider({ children }) {
-
-    const [profile, setProfile] = useState({
-        name: "",
-        bio: "",
-
-        skills: [],
-
-        projects: [],
-    });
+export const ProfileProvider = ({ children }) => {
+    const [profile, setProfile] = useState(defaultProfile);
 
     return (
         <ProfileContext.Provider value={{ profile, setProfile }}>
             {children}
         </ProfileContext.Provider>
     );
-}
+};
 
-export function useProfile() {
-    return useContext(ProfileContext);
-}
+export const useProfile = () => {
+    const context = useContext(ProfileContext);
+    if (!context) {
+        throw new Error("useProfile must be used within a ProfileProvider");
+    }
+    return context;
+};
