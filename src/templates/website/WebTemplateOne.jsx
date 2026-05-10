@@ -21,7 +21,7 @@ function WebTemplateOne({ profileData }) {
         switch(id) {
             case "projects":
                 return (
-                    <section key={id} className="py-32 px-10 max-w-7xl mx-auto">
+                    <section key={id} id="work" className="py-32 px-10 max-w-7xl mx-auto">
                         <div className="flex justify-between items-end mb-16">
                             <h2 className="text-5xl font-black italic uppercase tracking-tighter">Selected <br/> <span style={{ color: primary }}>Works</span></h2>
                             <p className="text-gray-500 max-w-xs text-sm">A collection of products I've built with focus on user experience and scale.</p>
@@ -35,7 +35,7 @@ function WebTemplateOne({ profileData }) {
                                 >
                                     <div className="aspect-[16/10] overflow-hidden rounded-3xl bg-gray-100 mb-6">
                                         {p.image ? (
-                                            <img src={p.image} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                                            <img src={p.image} alt={p.title || p.description || 'project image'} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-gray-300 font-black text-4xl">PROJECT</div>
                                         )}
@@ -50,7 +50,7 @@ function WebTemplateOne({ profileData }) {
                                             </div>
                                         </div>
                                         <div className="flex gap-4">
-                                            {p.liveDemo && <a href={p.liveDemo} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-black hover:text-white transition-all">↗</a>}
+                                            {p.liveDemo && <a href={p.liveDemo} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-black hover:text-white transition-all">↗</a>}
                                         </div>
                                     </div>
                                 </motion.div>
@@ -113,7 +113,7 @@ function WebTemplateOne({ profileData }) {
                 </div>
             </nav>
 
-            <section className="h-screen flex items-center px-6 lg:px-10 relative overflow-hidden bg-white">
+            <section id="about" className="h-screen flex items-center px-6 lg:px-10 relative overflow-hidden bg-white">
                  <div className="max-w-7xl mx-auto w-full relative z-10">
                     <motion.p 
                         initial={{ opacity: 0, y: 20 }}
@@ -141,7 +141,7 @@ function WebTemplateOne({ profileData }) {
                         </p>
                         <div className="flex gap-4">
                             {socialLinks?.map(s => (
-                                <a key={s.id} href={s.url} target="_blank" className="text-xs font-bold uppercase tracking-widest hover:underline">{s.platform}</a>
+                                <a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-widest hover:underline">{s.platform}</a>
                             ))}
                         </div>
                     </motion.div>
@@ -155,7 +155,7 @@ function WebTemplateOne({ profileData }) {
             {sectionOrder.map(id => renderSection(id))}
 
             {/* DARK FOOTER */}
-            <footer className="py-40 bg-black text-white px-10 text-center">
+            <footer id="contact" className="py-40 bg-black text-white px-10 text-center">
                 <p className="text-gray-500 font-bold uppercase tracking-widest text-[10px] mb-8">Got a project in mind?</p>
                 <h2 className="text-7xl md:text-9xl font-black uppercase italic tracking-tighter mb-20 hover:text-white/80 cursor-pointer transition-all">Let's <span style={{ color: primary }}>Talk.</span></h2>
                 <div className="pt-20 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] font-bold uppercase tracking-widest text-gray-500">

@@ -40,8 +40,8 @@ function TemplateTwo({ profileData }) {
                                     <h3 className="font-bold text-lg">{p.title}</h3>
                                     <p className="text-gray-500 text-sm mb-2">{p.description}</p>
                                     <div className="flex gap-4 text-xs font-bold uppercase tracking-widest">
-                                        {p.github && <a href={p.github} target="_blank" className="hover:underline">Code</a>}
-                                        {p.liveDemo && <a href={p.liveDemo} target="_blank" className="hover:underline">Live</a>}
+                                        {p.github && <a href={p.github} target="_blank" rel="noopener noreferrer" className="hover:underline">Code</a>}
+                                        {p.liveDemo && <a href={p.liveDemo} target="_blank" rel="noopener noreferrer" className="hover:underline">Live</a>}
                                     </div>
                                 </div>
                             ))}
@@ -83,7 +83,7 @@ function TemplateTwo({ profileData }) {
                     
                     <div className="space-y-2">
                         {socialLinks?.map(s => (
-                            <a key={s.id} href={s.url} target="_blank" className="block text-xs font-bold hover:underline py-1">
+                            <a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer" className="block text-xs font-bold hover:underline py-1">
                                 {s.platform} ↗
                             </a>
                         ))}
