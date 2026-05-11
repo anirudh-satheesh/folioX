@@ -216,7 +216,7 @@ function WebTemplateTwo({ profileData }) {
                                         className="flex items-center gap-8 group"
                                     >
                                         <div className="w-20 h-20 rounded-2xl border border-white/10 flex items-center justify-center shrink-0 group-hover:border-white/20 transition-colors" style={{ background: `linear-gradient(135deg, ${primary}15, ${secondary}15)` }}>
-                                            <span className="text-2xl font-black text-white/30">{edu.year?.slice(-2)}</span>
+                                            <span className="text-2xl font-black text-white/30">{String(edu.year ?? '').slice(-2)}</span>
                                         </div>
                                         <div>
                                             <h3 className="text-xl font-bold">{edu.degree}</h3>
@@ -376,7 +376,7 @@ function WebTemplateTwo({ profileData }) {
                         initial="hidden" whileInView="visible" viewport={{ once: true }}
                         variants={fadeUp} custom={0.2}
                     >
-                        <a href="mailto:hello@example.com" className="inline-block px-10 py-5 rounded-full text-xs font-black uppercase tracking-widest text-black hover:scale-105 active:scale-95 transition-all" style={{ backgroundColor: primary }}>
+                        <a href={`mailto:${profileData.email || 'hello@example.com'}`} className="inline-block px-10 py-5 rounded-full text-xs font-black uppercase tracking-widest text-black hover:scale-105 active:scale-95 transition-all" style={{ backgroundColor: primary }}>
                             Say Hello
                         </a>
                     </motion.div>
