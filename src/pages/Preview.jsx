@@ -1,18 +1,25 @@
 import { useProfile } from "../context/ProfileContext";
-import TemplateOne from "../templates/portfolio/TemplateOne";
-import TemplateTwo from "../templates/portfolio/TemplateTwo";
+import TemplateOne from "../templates/resume/TemplateOne";
+import TemplateTwo from "../templates/resume/TemplateTwo";
 import WebTemplateOne from "../templates/website/WebTemplateOne";
+import WebTemplateTwo from "../templates/website/WebTemplateTwo";
 
 function Preview() {
   const { profile } = useProfile();
 
   const renderTemplate = () => {
-    // If in portfolio mode, use web templates
     if (profile.mode === "portfolio") {
-       return <WebTemplateOne profileData={profile} />;
+      switch (profile.selectedTemplate) {
+        case "one":
+          return <WebTemplateOne profileData={profile} />;
+        case "two":
+          return <WebTemplateTwo profileData={profile} />;
+        default:
+          return <WebTemplateOne profileData={profile} />;
+      }
     }
 
-    // Standard Resume Mode
+    // Resume Mode
     switch (profile.selectedTemplate) {
       case "one":
         return <TemplateOne profileData={profile} />;

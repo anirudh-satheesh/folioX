@@ -58,7 +58,7 @@ function App() {
 
           <div className="flex items-center gap-4 bg-white px-4 py-1.5 rounded-full shadow-sm border text-sm scale-90 lg:scale-100">
             <span className="font-bold text-black capitalize truncate max-w-[100px] lg:max-w-none">
-              {isWebMode ? "Premium Web" : `Template ${profile.selectedTemplate}`}
+              {isWebMode ? `Web Template ${profile.selectedTemplate}` : `Template ${profile.selectedTemplate}`}
             </span>
             <span className="w-[1px] h-4 bg-gray-200"></span>
             <div className="flex items-center gap-2 text-gray-400">
