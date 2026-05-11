@@ -165,14 +165,16 @@ function Builder() {
             onClick={() => setProfile({ ...profile, selectedTemplate: 'two' })}
             className={`p-1 rounded-2xl border-2 transition-all ${profile.selectedTemplate === 'two' ? 'border-black' : 'border-transparent'}`}
           >
-            <div className="aspect-[4/3] bg-white border border-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
-               <div className="w-1/3 h-full border-r border-gray-100 bg-gray-50 flex items-center justify-center">
-                 <div className="w-4 h-1 bg-gray-200 rounded-full" />
+            <div className="aspect-[4/3] bg-[#0a0a0a] border border-gray-800 rounded-xl flex items-center justify-center overflow-hidden relative">
+               <div className="w-1/3 h-full border-r border-gray-800 bg-black flex items-center justify-center relative z-10">
+                 <div className="w-4 h-1 bg-gray-700 rounded-full" />
                </div>
-               <div className="flex-1 p-2 space-y-1">
-                 <div className="w-full h-1 bg-gray-100 rounded-full" />
-                 <div className="w-2/3 h-1 bg-gray-100 rounded-full" />
+               <div className="flex-1 p-2 space-y-1 relative z-10">
+                 <div className="w-full h-1 bg-gray-800 rounded-full" />
+                 <div className="w-2/3 h-1 bg-gray-800 rounded-full" />
                </div>
+               {/* Tiny indicator for template name */}
+               <span className="absolute bottom-2 right-2 text-white/50 text-[8px] font-black uppercase z-20">Template Two</span>
             </div>
           </button>
         </div>
