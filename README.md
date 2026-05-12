@@ -6,31 +6,23 @@
 
 ## ✨ Features
 
-### 🎨 Editor
-- **Split-screen live editor** — edit on the left, preview on the right in real time
-- **Drag & drop section reordering** — rearrange your portfolio sections with smooth framer-motion animations
-- **Theme customizer** — pick primary/secondary colors and see changes instantly
-- **Mode toggle** — switch between **Website** and **Resume** output formats
+### 🎨 Premium Editor
+- **Split-screen live editor** — edit on the left, preview on the right in real time.
+- **Design System Engine** — Built on a 4px grid with centralized tokens for spacing, radius, and luxury shadows.
+- **Canvas Toolbar** — Precise zoom controls (40% to 200%) and instant device/mode switching.
+- **Drag & drop section reordering** — Rearrange your portfolio with buttery-smooth `framer-motion` layout animations.
+- **Persistence** — Automatic local storage sync so your progress is never lost.
 
-### 📄 Resume Mode
-- A4-styled document preview
-- **Template One** — Modern, vibrant, section-based with full theme color support
-- **Template Two** — Minimalist, monochromatic sidebar layout
+### 🖼 Preview Simulation
+- **Web Mode**: A high-fidelity "Desktop inside Desktop" mockup with realistic browser dots, address bars, and CSS-isolated `iframe` sandboxing.
+- **Mobile Mode**: Pixel-perfect mobile skin (375x850px) for testing responsiveness.
+- **Resume Mode**: Document-optimized canvas for A4-style document previews.
+- **Isolated Scrolling**: Pro-grade viewport locking (only the simulation scrolls, never the editor).
 
-### 🌐 Website Mode
-- Edge-to-edge, full-width portfolio site rendering
-- **Web Template One** — Premium brutalist design with animated skill marquees, grayscale project hovers, and cinematic hero typography
-
-### 🗂 Sections Supported
-- Basic Info (name, bio, resume link)
-- Hero customization (greeting, job title)
-- Skills
-- Projects (with GitHub, live demo, tech stack, featured flag)
-- Experience (timeline layout)
-- Education
-- Certifications
-- Achievements
-- Social Links
+### 📄 Templates
+- **Web Template One**: Brutalist high-fidelity site with marquee skill animations and grayscale image reveals.
+- **Resume Template One**: Modern, section-based professional layout.
+- **Resume Template Two**: Elegant, monochromatic sidebar design.
 
 ---
 
@@ -38,11 +30,12 @@
 
 | Technology | Purpose |
 |---|---|
-| React 19 | UI framework |
-| Vite | Build tool & dev server |
-| Tailwind CSS v3 | Styling |
-| framer-motion | Animations & drag-and-drop |
+| React 19 | Core UI Framework |
+| Vite | Lightning-fast Build Tool |
+| Tailwind CSS | Token-driven Styling |
+| framer-motion | Cinema-grade Animations |
 | Context API | Global state management |
+| Iframe Portals | Isolated simulation environment |
 
 ---
 
@@ -50,23 +43,23 @@
 
 ```
 src/
-├── App.jsx                      # Main layout (sidebar + canvas)
+├── App.jsx                      # Main app shell & Canvas Toolbar
 ├── components/
-│   └── forms/
-│       └── ProjectForm.jsx      # Reusable project form component
-├── context/
-│   └── ProfileContext.jsx       # Global profile state
-├── data/
-│   └── defaultProfile.js        # Central schema (single source of truth)
+│   ├── ui/
+│   │   └── fields/              # Design-system-aligned form components
+│   ├── forms/                   # Complex nested forms (ProjectForm)
+│   └── sections/                # Individual section editors
+├── core/
+│   ├── sectionRegistry.js       # Dynamic section management
+│   └── templateRegistry.js      # Global template manifesting
 ├── pages/
-│   ├── Builder.jsx              # Left panel — editor UI
-│   └── Preview.jsx             # Right panel — template renderer
-└── templates/
-    ├── portfolio/               # Resume-style templates
-    │   ├── TemplateOne.jsx
-    │   └── TemplateTwo.jsx
-    └── website/                 # Full-width website templates
-        └── WebTemplateOne.jsx
+│   ├── Builder.jsx              # The Sidebar Editor logic
+│   ├── Preview.jsx              # Dispatcher for preview modes
+│   ├── WebPreview.jsx           # Portfolio simulation engine
+│   └── ResumePreview.jsx        # Document rendering engine
+├── styles/
+│   └── tokens.js                # Core Design System tokens
+└── templates/                   # Portfolio / Resume react components
 ```
 
 ---
@@ -97,4 +90,4 @@ The app runs at `http://localhost:5173` by default.
 
 ## 📌 Status
 
-`Active Development` — Core editor, drag-and-drop, multi-mode templates, and centralized schema are complete.
+`Active Development` — Core editor, Design System, Preview Engine, and cross-mode templates are complete.
