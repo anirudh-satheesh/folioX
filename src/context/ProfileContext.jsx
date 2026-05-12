@@ -1,10 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { defaultProfile } from "../data/defaultProfile";
+import { loadProfile, saveProfile } from "../lib/storage";
 
 export const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
-    const [profile, setProfile] = useState(defaultProfile);
+    // Hydrate state on app load
+    const [profile, setProfile] = useState(() => {
+        return loadProfile() || defaultProfile;
+    });
+
+    // Autosave on profile changes
+    useEffect(() => {
+        saveProfile(profile);
+    }, [profile]);
 
     return (
         <ProfileContext.Provider value={{ profile, setProfile }}>
