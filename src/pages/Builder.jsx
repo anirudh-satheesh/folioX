@@ -1,14 +1,19 @@
+
 import { useProfile } from "../context/ProfileContext";
 import { Reorder } from "framer-motion";
 import { sectionRegistry } from "../core/sectionRegistry";
 import { templateRegistry } from "../core/templateRegistry";
 import { SectionCard } from "../components/ui/fields";
 
+
 function Builder() {
   const { profile, setProfile } = useProfile();
+
   
   // Filter templates based on current mode (Resume vs Website)
   const availableTemplates = templateRegistry.filter(t => t.mode === profile.mode);
+
+
   
   return (
     <div className="pb-24">

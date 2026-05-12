@@ -6,7 +6,11 @@ import { useProfile } from "./context/ProfileContext";
 function App() {
   const { profile } = useProfile();
   const [showPreviewMobile, setShowPreviewMobile] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const [mobileView, setMobileView] = useState(false);
   const isWebMode = profile.mode === "portfolio";
+  const increaseZoom = () => setZoom(prev => Math.min(prev + 0.1, 2));
+  const decreaseZoom = () => setZoom(prev => Math.max(prev - 0.1, 0.5));
 
   return (
     <div className="h-screen flex flex-col lg:flex-row bg-[#F8F9FB] overflow-hidden font-inter">
@@ -67,15 +71,20 @@ function App() {
           </div>
           
           <div className="flex items-center gap-2">
-            <span className="text-sm font-bold">100%</span>
-          </div>
+  <button onClick={decreaseZoom} className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 text-xs">-</button>
+  <span className="text-xs font-medium">{Math.round(zoom * 100)}%</span>
+  <button onClick={increaseZoom} className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 text-xs">+</button>
+            {isWebMode && (
+              <button onClick={() => setMobileView(!mobileView)} className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 text-xs">
+                {mobileView ? "Desktop" : "Mobile"}
+              </button>
+            )}
+</div>
         </div>
 
         {/* Scrollable Canvas Area */}
-        <div className={`flex-1 overflow-y-auto custom-scrollbar flex justify-center ${isWebMode ? 'p-0' : 'p-4 lg:p-12'}`}>
-          <div className={`${isWebMode ? 'w-full' : 'w-full max-w-[900px] h-fit'} bg-transparent`}>
-             <Preview />
-          </div>
+        <div className={`flex-1 overflow-auto flex justify-center items-start ${isWebMode ? 'p-0' : 'p-4 lg:p-12'}`}>
+          <Preview zoom={zoom} mobile={mobileView} />
         </div>
       </main>
 
