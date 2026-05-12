@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { educationSchema } from "../../data/defaultProfile";
-import { Section, Input } from "../EditorUI";
+import { SectionCard, TextField, ArrayInput } from "../ui/fields";
 
 const EducationEditor = () => {
     const { profile, setProfile } = useProfile();
@@ -27,20 +27,23 @@ const EducationEditor = () => {
     };
 
     return (
-        <Section title="Academic Background">
+        <SectionCard title="Academic Background">
             <div className="space-y-3 mb-6">
-                <Input
-                    placeholder="School/University"
+                <TextField
+                    label="School/University"
+                    placeholder="e.g. Stanford University"
                     value={input.school}
                     onChange={(e) => setInput({ ...input, school: e.target.value })}
                 />
-                <Input
-                    placeholder="Degree"
+                <TextField
+                    label="Degree"
+                    placeholder="e.g. B.S. in Computer Science"
                     value={input.degree}
                     onChange={(e) => setInput({ ...input, degree: e.target.value })}
                 />
-                <Input
-                    placeholder="Year"
+                <TextField
+                    label="Year"
+                    placeholder="e.g. 2018 - 2022"
                     value={input.year}
                     onChange={(e) => setInput({ ...input, year: e.target.value })}
                 />
@@ -51,31 +54,14 @@ const EducationEditor = () => {
                     {editingId ? "Update Education" : "Add Education"}
                 </button>
             </div>
-            <div className="space-y-2">
-                {profile.education.map((edu) => (
-                    <div
-                        key={edu.id}
-                        className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100"
-                    >
-                        <span className="text-xs font-bold truncate pr-4">{edu.school}</span>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => { setInput(edu); setEditingId(edu.id); }}
-                                className="text-blue-600 text-[10px] font-black uppercase"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                onClick={() => handleDelete(edu.id)}
-                                className="text-red-600 text-[10px] font-black uppercase"
-                            >
-                                Del
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </Section>
+            
+            <ArrayInput 
+                items={profile.education}
+                onEdit={(edu) => { setInput(edu); setEditingId(edu.id); }}
+                onDelete={handleDelete}
+                titleKey="school"
+            />
+        </SectionCard>
     );
 };
 

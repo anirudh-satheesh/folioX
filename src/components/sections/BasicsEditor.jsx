@@ -1,29 +1,32 @@
 import { useProfile } from "../../context/ProfileContext";
-import { Section, Input, TextArea } from "../EditorUI";
+import { SectionCard, TextField, TextAreaField } from "../ui/fields";
 
 const BasicsEditor = () => {
     const { profile, setProfile } = useProfile();
 
     return (
-        <Section title="Profile Basics">
+        <SectionCard title="Profile Basics">
             <div className="space-y-4">
-                <Input 
-                    placeholder="Full Name"
+                <TextField 
+                    label="Full Name"
+                    placeholder="Enter your name"
                     value={profile.name}
                     onChange={(e) => setProfile({ ...profile, name: e.target.value })}
                 />
-                <TextArea 
-                    placeholder="Professional Biography"
+                <TextAreaField 
+                    label="Biography"
+                    placeholder="Describe yourself..."
                     value={profile.bio}
                     onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
                 />
-                <Input 
-                    placeholder="Resume Link (Google Drive/Dropbox)"
+                <TextField 
+                    label="Resume Link"
+                    placeholder="Google Drive / Dropbox URL"
                     value={profile.resumeUrl}
                     onChange={(e) => setProfile({ ...profile, resumeUrl: e.target.value })}
                 />
             </div>
-        </Section>
+        </SectionCard>
     );
 };
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { experienceSchema } from "../../data/defaultProfile";
-import { Section, Input, TextArea } from "../EditorUI";
+import { SectionCard, TextField, TextAreaField, ArrayInput } from "../ui/fields";
 
 const ExperienceEditor = () => {
     const { profile, setProfile } = useProfile();
@@ -32,25 +32,29 @@ const ExperienceEditor = () => {
     };
 
     return (
-        <Section title="Career Path">
+        <SectionCard title="Career Path">
             <div className="space-y-3 mb-6">
-                <Input
-                    placeholder="Company"
+                <TextField
+                    label="Company"
+                    placeholder="e.g. Acme Corp"
                     value={input.company}
                     onChange={(e) => setInput({ ...input, company: e.target.value })}
                 />
-                <Input
-                    placeholder="Role"
+                <TextField
+                    label="Role"
+                    placeholder="e.g. Senior Frontend Engineer"
                     value={input.role}
                     onChange={(e) => setInput({ ...input, role: e.target.value })}
                 />
-                <Input
-                    placeholder="Duration (e.g. 2022-Present)"
+                <TextField
+                    label="Duration"
+                    placeholder="e.g. 2022-Present"
                     value={input.duration}
                     onChange={(e) => setInput({ ...input, duration: e.target.value })}
                 />
-                <TextArea
-                    placeholder="Results & Responsibilities"
+                <TextAreaField
+                    label="Responsibilities"
+                    placeholder="Describe your impact and key results..."
                     value={input.description}
                     onChange={(e) => setInput({ ...input, description: e.target.value })}
                 />
@@ -61,31 +65,14 @@ const ExperienceEditor = () => {
                     {editingId ? "Update Job" : "Add Experience"}
                 </button>
             </div>
-            <div className="space-y-2">
-                {profile.experience.map((exp) => (
-                    <div
-                        key={exp.id}
-                        className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100"
-                    >
-                        <span className="text-xs font-bold truncate pr-4">{exp.company}</span>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => handleEdit(exp)}
-                                className="text-blue-600 text-[10px] font-black uppercase"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                onClick={() => handleDelete(exp.id)}
-                                className="text-red-600 text-[10px] font-black uppercase"
-                            >
-                                Del
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </Section>
+            
+            <ArrayInput 
+                items={profile.experience}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                titleKey="company"
+            />
+        </SectionCard>
     );
 };
 

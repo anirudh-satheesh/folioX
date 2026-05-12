@@ -1,7 +1,7 @@
 import { useProfile } from "../context/ProfileContext";
 import { Reorder } from "framer-motion";
 import { sectionRegistry } from "../core/sectionRegistry";
-import { Section } from "../components/EditorUI";
+import { SectionCard } from "../components/ui/fields";
 
 function Builder() {
   const { profile, setProfile } = useProfile();
@@ -25,7 +25,7 @@ function Builder() {
       </div>
 
       {/* TEMPLATE PICKER */}
-      <Section title="Templates" badge="New">
+      <SectionCard title="Templates" badge="New">
         <div className="grid grid-cols-2 gap-3">
           <button 
             onClick={() => setProfile({ ...profile, selectedTemplate: 'one' })}
@@ -51,10 +51,10 @@ function Builder() {
             </div>
           </button>
         </div>
-      </Section>
+      </SectionCard>
 
       {/* SECTION ORDERING */}
-      <Section title="Structure" badge="Drag">
+      <SectionCard title="Structure" badge="Drag">
         <Reorder.Group 
           axis="y" 
           values={profile.sectionOrder} 
@@ -79,17 +79,17 @@ function Builder() {
             </Reorder.Item>
           ))}
         </Reorder.Group>
-      </Section>
+      </SectionCard>
 
       {/* THEME & APPEARANCE */}
-      <Section title="Appearance">
+      <SectionCard title="Appearance">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="text-[10px] font-bold text-gray-400 uppercase">Primary</label>
+            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Primary</label>
             <div className="flex gap-2 items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
               <input
                 type="color"
-                className="w-8 h-8 rounded-lg cursor-pointer bg-transparent"
+                className="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-none"
                 value={profile.theme.primary}
                 onChange={(e) => setProfile({ ...profile, theme: { ...profile.theme, primary: e.target.value } })}
               />
@@ -97,11 +97,11 @@ function Builder() {
             </div>
           </div>
           <div className="space-y-1">
-             <label className="text-[10px] font-bold text-gray-400 uppercase">Secondary</label>
+             <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Secondary</label>
              <div className="flex gap-2 items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
               <input
                 type="color"
-                className="w-8 h-8 rounded-lg cursor-pointer bg-transparent"
+                className="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-none"
                 value={profile.theme.secondary}
                 onChange={(e) => setProfile({ ...profile, theme: { ...profile.theme, secondary: e.target.value } })}
               />
@@ -109,7 +109,7 @@ function Builder() {
             </div>
           </div>
         </div>
-      </Section>
+      </SectionCard>
 
       {/* STATIC CONTENT SECTIONS */}
       <sectionRegistry.hero.Editor />

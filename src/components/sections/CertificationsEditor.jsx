@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { certificationSchema } from "../../data/defaultProfile";
-import { Section, Input } from "../EditorUI";
+import { SectionCard, TextField, ArrayInput } from "../ui/fields";
 
 const CertificationsEditor = () => {
     const { profile, setProfile } = useProfile();
@@ -27,20 +27,23 @@ const CertificationsEditor = () => {
     };
 
     return (
-        <Section title="Certifications">
+        <SectionCard title="Certifications">
             <div className="space-y-3 mb-6">
-                <Input
-                    placeholder="Certification Name"
+                <TextField
+                    label="Certification Name"
+                    placeholder="e.g. AWS Certified Solutions Architect"
                     value={input.name}
                     onChange={(e) => setInput({ ...input, name: e.target.value })}
                 />
-                <Input
-                    placeholder="Issuer"
+                <TextField
+                    label="Issuer"
+                    placeholder="e.g. Amazon Web Services"
                     value={input.issuer}
                     onChange={(e) => setInput({ ...input, issuer: e.target.value })}
                 />
-                <Input
-                    placeholder="Year"
+                <TextField
+                    label="Year"
+                    placeholder="e.g. 2023"
                     value={input.year}
                     onChange={(e) => setInput({ ...input, year: e.target.value })}
                 />
@@ -51,31 +54,14 @@ const CertificationsEditor = () => {
                     {editingId ? "Update Cert" : "Add Certification"}
                 </button>
             </div>
-            <div className="space-y-2">
-                {profile.certifications.map((c) => (
-                    <div
-                        key={c.id}
-                        className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100"
-                    >
-                        <span className="text-xs font-bold truncate pr-4">{c.name}</span>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => { setInput(c); setEditingId(c.id); }}
-                                className="text-blue-600 text-[10px] font-black uppercase"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                onClick={() => handleDelete(c.id)}
-                                className="text-red-600 text-[10px] font-black uppercase"
-                            >
-                                Del
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </Section>
+            
+            <ArrayInput 
+                items={profile.certifications}
+                onEdit={(c) => { setInput(c); setEditingId(c.id); }}
+                onDelete={handleDelete}
+                titleKey="name"
+            />
+        </SectionCard>
     );
 };
 

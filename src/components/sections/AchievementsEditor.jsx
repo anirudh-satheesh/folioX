@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { achievementSchema } from "../../data/defaultProfile";
-import { Section, Input, TextArea } from "../EditorUI";
+import { SectionCard, TextField, TextAreaField, ArrayInput } from "../ui/fields";
 
 const AchievementsEditor = () => {
     const { profile, setProfile } = useProfile();
@@ -27,15 +27,17 @@ const AchievementsEditor = () => {
     };
 
     return (
-        <Section title="Achievements">
+        <SectionCard title="Achievements">
             <div className="space-y-3 mb-6">
-                <Input
-                    placeholder="Achievement Title"
+                <TextField
+                    label="Achievement Title"
+                    placeholder="e.g. Won Hackathon 2023"
                     value={input.title}
                     onChange={(e) => setInput({ ...input, title: e.target.value })}
                 />
-                <TextArea
-                    placeholder="Description"
+                <TextAreaField
+                    label="Description"
+                    placeholder="Briefly explain what you achieved..."
                     value={input.description}
                     onChange={(e) => setInput({ ...input, description: e.target.value })}
                 />
@@ -46,31 +48,14 @@ const AchievementsEditor = () => {
                     {editingId ? "Update Achievement" : "Add Achievement"}
                 </button>
             </div>
-            <div className="space-y-2">
-                {profile.achievements.map((a) => (
-                    <div
-                        key={a.id}
-                        className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100"
-                    >
-                        <span className="text-xs font-bold truncate pr-4">{a.title}</span>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => { setInput(a); setEditingId(a.id); }}
-                                className="text-blue-600 text-[10px] font-black uppercase"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                onClick={() => handleDelete(a.id)}
-                                className="text-red-600 text-[10px] font-black uppercase"
-                            >
-                                Del
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </Section>
+
+            <ArrayInput 
+                items={profile.achievements}
+                onEdit={(a) => { setInput(a); setEditingId(a.id); }}
+                onDelete={handleDelete}
+                titleKey="title"
+            />
+        </SectionCard>
     );
 };
 

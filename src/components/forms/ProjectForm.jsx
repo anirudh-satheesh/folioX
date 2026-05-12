@@ -1,75 +1,50 @@
 import React from 'react';
-
-const Input = (props) => (
-  <input 
-    {...props} 
-    className={`w-full bg-[#F5F7F9] border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:ring-2 focus:ring-black/5 focus:border-black/10 outline-none transition-all ${props.className || ""}`}
-  />
-);
-
-const TextArea = (props) => (
-  <textarea 
-    {...props} 
-    className={`w-full bg-[#F5F7F9] border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:ring-2 focus:ring-black/5 focus:border-black/10 outline-none transition-all min-h-[100px] ${props.className || ""}`}
-  />
-);
+import { TextField, TextAreaField } from '../ui/fields';
 
 const ProjectForm = ({ value, onChange, onSave, onCancel, isEditing }) => {
   return (
     <div className="bg-gray-50 p-6 rounded-2xl space-y-4 border border-dashed border-gray-300">
-      <div>
-        <label className="block mb-1 text-[10px] font-black text-gray-400 uppercase tracking-wider">Project Title</label>
-        <Input 
-          placeholder="e.g. E-commerce App"
-          value={value.title}
-          onChange={(e) => onChange({ ...value, title: e.target.value })}
-        />
-      </div>
+      <TextField 
+        label="Project Title"
+        placeholder="e.g. E-commerce App"
+        value={value.title}
+        onChange={(e) => onChange({ ...value, title: e.target.value })}
+      />
 
-      <div>
-        <label className="block mb-1 text-[10px] font-black text-gray-400 uppercase tracking-wider">Description</label>
-        <TextArea 
-          placeholder="What does this project do?"
-          value={value.description}
-          onChange={(e) => onChange({ ...value, description: e.target.value })}
-        />
-      </div>
+      <TextAreaField 
+        label="Description"
+        placeholder="What does this project do?"
+        value={value.description}
+        onChange={(e) => onChange({ ...value, description: e.target.value })}
+      />
 
-      <div>
-        <label className="block mb-1 text-[10px] font-black text-gray-400 uppercase tracking-wider">Tech Stack (comma separated)</label>
-        <Input 
-          placeholder="e.g. React, Firebase, Tailwind"
-          value={value.techStack}
-          onChange={(e) => onChange({ ...value, techStack: e.target.value })}
-        />
-      </div>
+      <TextField 
+        label="Tech Stack (comma separated)"
+        placeholder="e.g. React, Firebase, Tailwind"
+        value={value.techStack}
+        onChange={(e) => onChange({ ...value, techStack: e.target.value })}
+      />
 
-      <div>
-        <label className="block mb-1 text-[10px] font-black text-gray-400 uppercase tracking-wider">Image URL</label>
-        <Input 
-          placeholder="https://..."
-          value={value.image}
-          onChange={(e) => onChange({ ...value, image: e.target.value })}
-        />
-      </div>
+      <TextField 
+        label="Image URL"
+        placeholder="https://..."
+        value={value.image}
+        onChange={(e) => onChange({ ...value, image: e.target.value })}
+      />
 
       <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block mb-1 text-[10px] font-black text-gray-400 uppercase tracking-wider">GitHub Link</label>
-          <Input 
-            placeholder="https://github.com/..."
-            value={value.github}
-            onChange={(e) => onChange({ ...value, github: e.target.value })}
-          />
-        </div>
-        <div>
-          <label className="block mb-1 text-[10px] font-black text-gray-400 uppercase tracking-wider">Live Demo</label>
-          <Input 
-            placeholder="https://demo.com/..."
-            value={value.liveDemo}
-            onChange={(e) => onChange({ ...value, liveDemo: e.target.value })}
-          />
-        </div>
+        <TextField 
+          label="GitHub Link"
+          placeholder="https://github.com/..."
+          value={value.github}
+          onChange={(e) => onChange({ ...value, github: e.target.value })}
+        />
+        <TextField 
+          label="Live Demo"
+          placeholder="https://demo.com/..."
+          value={value.liveDemo}
+          onChange={(e) => onChange({ ...value, liveDemo: e.target.value })}
+        />
       </div>
 
       <div className="flex items-center gap-2 py-2">

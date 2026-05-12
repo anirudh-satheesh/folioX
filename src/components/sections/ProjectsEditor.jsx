@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { projectSchema } from "../../data/defaultProfile";
 import ProjectForm from "../forms/ProjectForm";
-import { Section } from "../EditorUI";
+import { SectionCard, ArrayInput } from "../ui/fields";
 
 const ProjectsEditor = () => {
     const { profile, setProfile } = useProfile();
@@ -40,44 +40,25 @@ const ProjectsEditor = () => {
     };
 
     return (
-        <Section title="Portfolio Work">
-            <div className="mb-6">
-                <ProjectForm
-                    value={projectInput}
-                    onChange={setProjectInput}
-                    onSave={handleSaveProject}
-                    onCancel={() => {
-                        setEditingProjectId(null);
-                        setProjectInput({ ...projectSchema, id: crypto.randomUUID() });
-                    }}
-                    isEditing={!!editingProjectId}
-                />
-            </div>
-            <div className="space-y-2">
-                {profile.projects.map((p) => (
-                    <div
-                        key={p.id}
-                        className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100"
-                    >
-                        <span className="text-xs font-bold truncate pr-4">{p.title}</span>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => handleEdit(p)}
-                                className="text-blue-600 text-[10px] font-black uppercase"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                onClick={() => handleDelete(p.id)}
-                                className="text-red-600 text-[10px] font-black uppercase"
-                            >
-                                Del
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </Section>
+        <SectionCard title="Portfolio Work">
+            <ProjectForm
+                value={projectInput}
+                onChange={setProjectInput}
+                onSave={handleSaveProject}
+                onCancel={() => {
+                    setEditingProjectId(null);
+                    setProjectInput({ ...projectSchema, id: crypto.randomUUID() });
+                }}
+                isEditing={!!editingProjectId}
+            />
+            
+            <ArrayInput 
+                items={profile.projects}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                titleKey="title"
+            />
+        </SectionCard>
     );
 };
 
