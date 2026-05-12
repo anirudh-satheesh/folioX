@@ -2,35 +2,35 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 function WebTemplateOne({ profileData }) {
-    const { 
-        name, 
-        bio, 
-        theme, 
-        hero, 
-        skills, 
-        projects, 
-        experience, 
-        socialLinks, 
-        sectionOrder 
+    const {
+        name,
+        bio,
+        theme,
+        hero,
+        skills,
+        projects,
+        experience,
+        socialLinks,
+        sectionOrder
     } = profileData;
 
     const primary = theme?.primary || "#3b82f6";
     const secondary = theme?.secondary || "#10b981";
 
     const renderSection = (id) => {
-        switch(id) {
+        switch (id) {
             case "projects":
                 return (
                     <section key={id} id="work" className="py-32 px-10 max-w-7xl mx-auto">
                         <div className="flex justify-between items-end mb-16">
-                            <h2 className="text-5xl font-black italic uppercase tracking-tighter">Selected <br/> <span style={{ color: primary }}>Works</span></h2>
+                            <h2 className="text-5xl font-black italic uppercase tracking-tighter">Selected <br /> <span style={{ color: primary }}>Works</span></h2>
                             <p className="text-gray-500 max-w-xs text-sm">A collection of products I've built with focus on user experience and scale.</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                             {projects?.map(p => (
-                                <motion.div 
+                                <motion.div
                                     whileHover={{ y: -10 }}
-                                    key={p.id} 
+                                    key={p.id}
                                     className="group relative"
                                 >
                                     <div className="aspect-[16/10] overflow-hidden rounded-3xl bg-gray-100 mb-6">
@@ -87,13 +87,13 @@ function WebTemplateOne({ profileData }) {
             case "skills":
                 return (
                     <section key={id} className="py-32 px-10 overflow-hidden">
-                         <div className="flex whitespace-nowrap gap-20 animate-marquee items-center mb-20">
-                             {Array(10).fill(0).map((_, i) => (
-                                 <h2 key={i} className="text-8xl font-black uppercase tracking-tighter opacity-10">
-                                     {skills?.join(" • ") || "SKILLS • TOOLS • STACK"}
-                                 </h2>
-                             ))}
-                         </div>
+                        <div className="flex whitespace-nowrap gap-20 animate-marquee items-center mb-20">
+                            {Array(10).fill(0).map((_, i) => (
+                                <h2 key={i} className="text-8xl font-black uppercase tracking-tighter opacity-10">
+                                    {skills?.join(" • ") || "SKILLS • TOOLS • STACK"}
+                                </h2>
+                            ))}
+                        </div>
                     </section>
                 );
 
@@ -102,7 +102,7 @@ function WebTemplateOne({ profileData }) {
     };
 
     return (
-        <div className="w-full bg-[#fcfcfc] text-black selection:bg-black selection:text-white relative overflow-x-hidden">
+        <div className="w-full min-h-full bg-[#fcfcfc] text-black selection:bg-black selection:text-white relative overflow-hidden">
             {/* LARGE HERO SECTION */}
             <nav className="absolute top-0 left-0 w-full z-50 p-6 lg:p-10 flex justify-between items-center mix-blend-difference text-white">
                 <span className="font-black text-2xl lowercase tracking-tighter">{name?.split(" ")[0] || "folio"}./</span>
@@ -113,16 +113,16 @@ function WebTemplateOne({ profileData }) {
                 </div>
             </nav>
 
-            <section id="about" className="h-screen flex items-center px-6 lg:px-10 relative overflow-hidden bg-white">
-                 <div className="max-w-7xl mx-auto w-full relative z-10">
-                    <motion.p 
+            <section id="about" className="min-h-[100vh] flex items-center px-6 lg:px-10 relative overflow-hidden bg-white">
+                <div className="w-full relative z-10">
+                    <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-gray-400 font-bold uppercase tracking-[0.2em] mb-6 text-[10px] lg:text-sm"
                     >
                         {hero?.greeting || "Available for projects"}
                     </motion.p>
-                    <motion.h1 
+                    <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
@@ -130,7 +130,7 @@ function WebTemplateOne({ profileData }) {
                     >
                         {name || "DEVELOPER"}
                     </motion.h1>
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
@@ -145,17 +145,17 @@ function WebTemplateOne({ profileData }) {
                             ))}
                         </div>
                     </motion.div>
-                 </div>
+                </div>
 
-                 {/* DECORATIVE NOISE */}
-                 <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[9999]" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
+                {/* DECORATIVE NOISE */}
+                <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-10" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
             </section>
 
             {/* DYNAMIC SECTIONS */}
             {sectionOrder.map(id => renderSection(id))}
 
             {/* DARK FOOTER */}
-            <footer id="contact" className="py-40 bg-black text-white px-10 text-center">
+            <footer id="contact" className="py-24 lg:py-40 bg-black text-white px-10 text-center">
                 <p className="text-gray-500 font-bold uppercase tracking-widest text-[10px] mb-8">Got a project in mind?</p>
                 <h2 className="text-7xl md:text-9xl font-black uppercase italic tracking-tighter mb-20 hover:text-white/80 cursor-pointer transition-all">Let's <span style={{ color: primary }}>Talk.</span></h2>
                 <div className="pt-20 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] font-bold uppercase tracking-widest text-gray-500">

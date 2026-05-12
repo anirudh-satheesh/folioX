@@ -8,44 +8,41 @@ import { SectionCard } from "../components/ui/fields";
 
 function Builder() {
   const { profile, setProfile } = useProfile();
-
   
   // Filter templates based on current mode (Resume vs Website)
   const availableTemplates = templateRegistry.filter(t => t.mode === profile.mode);
 
-
-  
   return (
-    <div className="pb-24">
+    <div className="pb-32">
       {/* MODE SELECTOR */}
-      <div className="flex bg-gray-100 p-1.5 rounded-2xl mb-8">
+      <div className="flex bg-[#F2F4F7] p-1.5 rounded-2xl mb-10 shadow-inner">
         <button 
           onClick={() => setProfile({ ...profile, mode: 'portfolio', selectedTemplate: 'one' })}
-          className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all ${profile.mode === 'portfolio' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}
+          className={`flex-1 py-3.5 text-[11px] font-black uppercase tracking-[0.15em] rounded-xl transition-all duration-300 ${profile.mode === 'portfolio' ? 'bg-white shadow-md text-black ring-1 ring-black/5' : 'text-gray-400 hover:text-black'}`}
         >
           Website
         </button>
         <button 
           onClick={() => setProfile({ ...profile, mode: 'resume', selectedTemplate: 'one' })}
-          className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all ${profile.mode === 'resume' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}
+          className={`flex-1 py-3.5 text-[11px] font-black uppercase tracking-[0.15em] rounded-xl transition-all duration-300 ${profile.mode === 'resume' ? 'bg-white shadow-md text-black ring-1 ring-black/5' : 'text-gray-400 hover:text-black'}`}
         >
           Resume
         </button>
       </div>
 
       {/* TEMPLATE PICKER */}
-      <SectionCard title="Templates" badge={availableTemplates.length.toString()}>
-        <div className="grid grid-cols-2 gap-3">
+      <SectionCard title="Themes & Layouts" badge={availableTemplates.length.toString()}>
+        <div className="grid grid-cols-2 gap-4">
           {availableTemplates.map((template) => (
             <button 
               key={template.id}
               onClick={() => setProfile({ ...profile, selectedTemplate: template.id })}
-              className={`p-1 rounded-2xl border-2 transition-all text-left ${profile.selectedTemplate === template.id ? 'border-black' : 'border-transparent'}`}
+              className={`group p-1.5 rounded-[22px] border-2 transition-all duration-500 transform hover:scale-[1.03] ${profile.selectedTemplate === template.id ? 'border-black bg-black/[0.02]' : 'border-transparent'}`}
             >
-              <div className={`aspect-[4/3] rounded-xl flex flex-col items-center justify-center p-4 relative overflow-hidden bg-gray-50 border border-gray-100 group`}>
+              <div className="aspect-[4/3] rounded-[15px] flex flex-col items-center justify-center p-4 relative overflow-hidden bg-gray-50 border border-gray-100 shadow-sm">
                 <div className="w-full h-full absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity bg-gradient-to-br from-black to-gray-500" />
-                <span className="text-[10px] font-black uppercase tracking-wider text-center relative z-10">{template.name}</span>
-                <div className="mt-2 w-8 h-1 bg-black/10 rounded-full relative z-10" />
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-center relative z-10 leading-none">{template.name}</span>
+                <div className={`mt-2.5 w-6 h-1 rounded-full relative z-10 transition-all duration-500 ${profile.selectedTemplate === template.id ? 'bg-black w-10' : 'bg-black/10'}`} />
               </div>
             </button>
           ))}
@@ -53,59 +50,60 @@ function Builder() {
       </SectionCard>
 
       {/* SECTION ORDERING */}
-      <SectionCard title="Structure" badge="Drag">
+      <SectionCard title="Draft Structure" badge="Reorder">
         <Reorder.Group 
           axis="y" 
           values={profile.sectionOrder} 
           onReorder={(newOrder) => setProfile({ ...profile, sectionOrder: newOrder })}
-          className="space-y-2"
+          className="space-y-2.5"
         >
           {profile.sectionOrder.map((sectionId) => (
             <Reorder.Item 
               key={sectionId} 
               value={sectionId}
-              className="bg-gray-50 border border-gray-100 rounded-xl p-3 flex items-center justify-between cursor-grab active:cursor-grabbing hover:border-black/10 transition-colors group"
+              className="bg-[#F8F9FA] border border-transparent rounded-2xl p-4 flex items-center justify-between cursor-grab active:cursor-grabbing hover:bg-white hover:border-gray-100 hover:shadow-xl hover:shadow-black/[0.02] transition-all duration-300 group"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-black transition-colors" />
-                <span className="capitalize text-xs font-bold text-gray-600 group-hover:text-black">
+              <div className="flex items-center gap-4">
+                <div className="w-1.5 h-1.5 bg-gray-200 rounded-full group-hover:bg-black transition-colors" />
+                <span className="capitalize text-[11px] font-black text-gray-400 group-hover:text-black uppercase tracking-widest transition-colors">
                     {sectionRegistry[sectionId]?.title || sectionId}
                 </span>
               </div>
-              <svg className="w-4 h-4 text-gray-300 group-hover:text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor font-bold">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 8h16M4 16h16" />
-              </svg>
+              <div className="flex flex-col gap-0.5 opacity-30 group-hover:opacity-100 transition-opacity">
+                <div className="w-4 h-0.5 bg-black rounded-full" />
+                <div className="w-4 h-0.5 bg-black rounded-full" />
+              </div>
             </Reorder.Item>
           ))}
         </Reorder.Group>
       </SectionCard>
 
       {/* THEME & APPEARANCE */}
-      <SectionCard title="Appearance">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Primary</label>
-            <div className="flex gap-2 items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
-              <input
+      <SectionCard title="Identity Colors">
+        <div className="grid grid-cols-1 gap-5">
+          <div className="flex items-center justify-between p-4 bg-[#F8F9FA] rounded-2xl border border-transparent hover:border-gray-50 transition-all">
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5">Primary Branding</label>
+                <span className="text-[12px] font-mono font-black text-black">{profile.theme.primary}</span>
+             </div>
+             <input
                 type="color"
-                className="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-none"
+                className="w-10 h-10 rounded-full cursor-pointer bg-transparent border-none appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-full [&::-webkit-color-swatch]:border-2 [&::-webkit-color-swatch]:border-white [&::-webkit-color-swatch]:shadow-sm"
                 value={profile.theme.primary}
                 onChange={(e) => setProfile({ ...profile, theme: { ...profile.theme, primary: e.target.value } })}
               />
-              <span className="text-[11px] font-mono font-medium">{profile.theme.primary}</span>
-            </div>
           </div>
-          <div className="space-y-1">
-             <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Secondary</label>
-             <div className="flex gap-2 items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
-              <input
+          <div className="flex items-center justify-between p-4 bg-[#F8F9FA] rounded-2xl border border-transparent hover:border-gray-50 transition-all">
+             <div>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5">Accent Layer</label>
+                <span className="text-[12px] font-mono font-black text-black">{profile.theme.secondary}</span>
+             </div>
+             <input
                 type="color"
-                className="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-none"
+                className="w-10 h-10 rounded-full cursor-pointer bg-transparent border-none appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-full [&::-webkit-color-swatch]:border-2 [&::-webkit-color-swatch]:border-white [&::-webkit-color-swatch]:shadow-sm"
                 value={profile.theme.secondary}
                 onChange={(e) => setProfile({ ...profile, theme: { ...profile.theme, secondary: e.target.value } })}
               />
-              <span className="text-[11px] font-mono font-medium">{profile.theme.secondary}</span>
-            </div>
           </div>
         </div>
       </SectionCard>
