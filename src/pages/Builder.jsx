@@ -16,14 +16,14 @@ function Builder() {
     <div className="pb-32">
       {/* MODE SELECTOR */}
       <div className="flex bg-[#F2F4F7] p-1.5 rounded-2xl mb-10 shadow-inner">
-        <button 
-          onClick={() => setProfile({ ...profile, mode: 'portfolio', selectedTemplate: 'one' })}
+        <button
+          onClick={() => setProfile(prev => ({ ...prev, mode: 'portfolio', selectedTemplate: 'one' }))}
           className={`flex-1 py-3.5 text-[11px] font-black uppercase tracking-[0.15em] rounded-xl transition-all duration-300 ${profile.mode === 'portfolio' ? 'bg-white shadow-md text-black ring-1 ring-black/5' : 'text-gray-400 hover:text-black'}`}
         >
           Website
         </button>
-        <button 
-          onClick={() => setProfile({ ...profile, mode: 'resume', selectedTemplate: 'one' })}
+        <button
+          onClick={() => setProfile(prev => ({ ...prev, mode: 'resume', selectedTemplate: 'one' }))}
           className={`flex-1 py-3.5 text-[11px] font-black uppercase tracking-[0.15em] rounded-xl transition-all duration-300 ${profile.mode === 'resume' ? 'bg-white shadow-md text-black ring-1 ring-black/5' : 'text-gray-400 hover:text-black'}`}
         >
           Resume
@@ -34,9 +34,9 @@ function Builder() {
       <SectionCard title="Themes & Layouts" badge={availableTemplates.length.toString()}>
         <div className="grid grid-cols-2 gap-4">
           {availableTemplates.map((template) => (
-            <button 
+            <button
               key={template.id}
-              onClick={() => setProfile({ ...profile, selectedTemplate: template.id })}
+              onClick={() => setProfile(prev => ({ ...prev, selectedTemplate: template.id }))}
               className={`group p-1.5 rounded-[22px] border-2 transition-all duration-500 transform hover:scale-[1.03] ${profile.selectedTemplate === template.id ? 'border-black bg-black/[0.02]' : 'border-transparent'}`}
             >
               <div className="aspect-[4/3] rounded-[15px] flex flex-col items-center justify-center p-4 relative overflow-hidden bg-gray-50 border border-gray-100 shadow-sm">
@@ -51,10 +51,10 @@ function Builder() {
 
       {/* SECTION ORDERING */}
       <SectionCard title="Draft Structure" badge="Reorder">
-        <Reorder.Group 
-          axis="y" 
-          values={profile.sectionOrder} 
-          onReorder={(newOrder) => setProfile({ ...profile, sectionOrder: newOrder })}
+        <Reorder.Group
+          axis="y"
+          values={profile.sectionOrder}
+          onReorder={(newOrder) => setProfile(prev => ({ ...prev, sectionOrder: newOrder }))}
           className="space-y-2.5"
         >
           {profile.sectionOrder.map((sectionId) => (
@@ -83,26 +83,28 @@ function Builder() {
         <div className="grid grid-cols-1 gap-5">
           <div className="flex items-center justify-between p-4 bg-[#F8F9FA] rounded-2xl border border-transparent hover:border-gray-50 transition-all">
              <div>
-                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5">Primary Branding</label>
+                <label htmlFor="primary-color" className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5">Primary Branding</label>
                 <span className="text-[12px] font-mono font-black text-black">{profile.theme.primary}</span>
              </div>
              <input
+                id="primary-color"
                 type="color"
                 className="w-10 h-10 rounded-full cursor-pointer bg-transparent border-none appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-full [&::-webkit-color-swatch]:border-2 [&::-webkit-color-swatch]:border-white [&::-webkit-color-swatch]:shadow-sm"
                 value={profile.theme.primary}
-                onChange={(e) => setProfile({ ...profile, theme: { ...profile.theme, primary: e.target.value } })}
+                onChange={(e) => setProfile(prev => ({ ...prev, theme: { ...prev.theme, primary: e.target.value } }))}
               />
           </div>
           <div className="flex items-center justify-between p-4 bg-[#F8F9FA] rounded-2xl border border-transparent hover:border-gray-50 transition-all">
              <div>
-                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5">Accent Layer</label>
+                <label htmlFor="secondary-color" className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5">Accent Layer</label>
                 <span className="text-[12px] font-mono font-black text-black">{profile.theme.secondary}</span>
              </div>
              <input
+                id="secondary-color"
                 type="color"
                 className="w-10 h-10 rounded-full cursor-pointer bg-transparent border-none appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-full [&::-webkit-color-swatch]:border-2 [&::-webkit-color-swatch]:border-white [&::-webkit-color-swatch]:shadow-sm"
                 value={profile.theme.secondary}
-                onChange={(e) => setProfile({ ...profile, theme: { ...profile.theme, secondary: e.target.value } })}
+                onChange={(e) => setProfile(prev => ({ ...prev, theme: { ...prev.theme, secondary: e.target.value } }))}
               />
           </div>
         </div>

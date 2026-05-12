@@ -152,7 +152,7 @@ function WebTemplateOne({ profileData }) {
             </section>
 
             {/* DYNAMIC SECTIONS */}
-            {sectionOrder.map(id => renderSection(id))}
+            {Array.isArray(sectionOrder) && sectionOrder.map(id => renderSection(id))}
 
             {/* DARK FOOTER */}
             <footer id="contact" className="py-24 lg:py-40 bg-black text-white px-10 text-center">

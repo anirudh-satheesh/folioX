@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { experienceSchema } from "../../data/defaultProfile";
 import { SectionCard, TextField, TextAreaField, ArrayInput } from "../ui/fields";
+import { generateId } from "../../utils/id";
 
 const ExperienceEditor = () => {
     const { profile, setProfile } = useProfile();
-    const [input, setInput] = useState({ ...experienceSchema, id: crypto.randomUUID() });
+    const [input, setInput] = useState({ ...experienceSchema, id: generateId() });
     const [editingId, setEditingId] = useState(null);
 
     const handleSave = () => {
@@ -19,7 +20,7 @@ const ExperienceEditor = () => {
         } else {
             setProfile({ ...profile, experience: [...profile.experience, input] });
         }
-        setInput({ ...experienceSchema, id: crypto.randomUUID() });
+        setInput({ ...experienceSchema, id: generateId() });
     };
 
     const handleEdit = (exp) => {

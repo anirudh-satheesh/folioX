@@ -37,7 +37,7 @@ const Frame = ({ children, className }) => {
   }, []);
 
   return (
-    <iframe ref={frameRef} className={className} style={{ width: '100%', height: '100%', border: 'none' }}>
+    <iframe ref={frameRef} className={className} title="Web preview" style={{ width: '100%', height: '100%', border: 'none' }}>
       {mountNode && createPortal(children, mountNode)}
     </iframe>
   );

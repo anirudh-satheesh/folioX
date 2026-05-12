@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { certificationSchema } from "../../data/defaultProfile";
 import { SectionCard, TextField, ArrayInput } from "../ui/fields";
+import { generateId } from "../../utils/id";
 
 const CertificationsEditor = () => {
     const { profile, setProfile } = useProfile();
-    const [input, setInput] = useState({ ...certificationSchema, id: crypto.randomUUID() });
+    const [input, setInput] = useState({ ...certificationSchema, id: generateId() });
     const [editingId, setEditingId] = useState(null);
 
     const handleSave = () => {
@@ -19,7 +20,7 @@ const CertificationsEditor = () => {
         } else {
             setProfile({ ...profile, certifications: [...profile.certifications, input] });
         }
-        setInput({ ...certificationSchema, id: crypto.randomUUID() });
+        setInput({ ...certificationSchema, id: generateId() });
     };
 
     const handleDelete = (id) => {

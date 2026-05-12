@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { achievementSchema } from "../../data/defaultProfile";
 import { SectionCard, TextField, TextAreaField, ArrayInput } from "../ui/fields";
+import { generateId } from "../../utils/id";
 
 const AchievementsEditor = () => {
     const { profile, setProfile } = useProfile();
-    const [input, setInput] = useState({ ...achievementSchema, id: crypto.randomUUID() });
+    const [input, setInput] = useState({ ...achievementSchema, id: generateId() });
     const [editingId, setEditingId] = useState(null);
 
     const handleSave = () => {
@@ -19,7 +20,7 @@ const AchievementsEditor = () => {
         } else {
             setProfile({ ...profile, achievements: [...profile.achievements, input] });
         }
-        setInput({ ...achievementSchema, id: crypto.randomUUID() });
+        setInput({ ...achievementSchema, id: generateId() });
     };
 
     const handleDelete = (id) => {

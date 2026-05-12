@@ -2,15 +2,16 @@ import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { socialLinkSchema } from "../../data/defaultProfile";
 import { SectionCard, TextField } from "../ui/fields";
+import { generateId } from "../../utils/id";
 
 const SocialEditor = () => {
     const { profile, setProfile } = useProfile();
-    const [socialInput, setSocialInput] = useState({ ...socialLinkSchema, id: crypto.randomUUID() });
+    const [socialInput, setSocialInput] = useState({ ...socialLinkSchema, id: generateId() });
 
     const handleSaveSocial = () => {
         if (!socialInput.platform.trim() || !socialInput.url.trim()) return;
         setProfile({ ...profile, socialLinks: [...profile.socialLinks, socialInput] });
-        setSocialInput({ ...socialLinkSchema, id: crypto.randomUUID() });
+        setSocialInput({ ...socialLinkSchema, id: generateId() });
     };
 
     const removeSocial = (id) => {

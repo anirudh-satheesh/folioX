@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useProfile } from "../../context/ProfileContext";
 import { educationSchema } from "../../data/defaultProfile";
 import { SectionCard, TextField, ArrayInput } from "../ui/fields";
+import { generateId } from "../../utils/id";
 
 const EducationEditor = () => {
     const { profile, setProfile } = useProfile();
-    const [input, setInput] = useState({ ...educationSchema, id: crypto.randomUUID() });
+    const [input, setInput] = useState({ ...educationSchema, id: generateId() });
     const [editingId, setEditingId] = useState(null);
 
     const handleSave = () => {
@@ -19,7 +20,7 @@ const EducationEditor = () => {
         } else {
             setProfile({ ...profile, education: [...profile.education, input] });
         }
-        setInput({ ...educationSchema, id: crypto.randomUUID() });
+        setInput({ ...educationSchema, id: generateId() });
     };
 
     const handleDelete = (id) => {

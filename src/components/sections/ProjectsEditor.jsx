@@ -3,10 +3,11 @@ import { useProfile } from "../../context/ProfileContext";
 import { projectSchema } from "../../data/defaultProfile";
 import ProjectForm from "../forms/ProjectForm";
 import { SectionCard, ArrayInput } from "../ui/fields";
+import { generateId } from "../../utils/id";
 
 const ProjectsEditor = () => {
     const { profile, setProfile } = useProfile();
-    const [projectInput, setProjectInput] = useState({ ...projectSchema, id: crypto.randomUUID() });
+    const [projectInput, setProjectInput] = useState({ ...projectSchema, id: generateId() });
     const [editingProjectId, setEditingProjectId] = useState(null);
 
     const handleSaveProject = () => {
@@ -19,24 +20,25 @@ const ProjectsEditor = () => {
         };
 
         if (editingProjectId) {
-            setProfile({
-                ...profile,
-                projects: profile.projects.map((p) => (p.id === editingProjectId ? formattedProject : p)),
-            });
+            setProfile(prev => ({
+                ...prev,
+                projects: prev.projects.map((p) => (p.id === editingProjectId ? formattedProject : p)),
+            }));
             setEditingProjectId(null);
         } else {
-            setProfile({ ...profile, projects: [...profile.projects, formattedProject] });
+            setProfile(prev => ({ ...prev, projects: [...prev.projects, formattedProject] }));
         }
-        setProjectInput({ ...projectSchema, id: crypto.randomUUID() });
+        setProjectInput({ ...projectSchema, id: generateId() });
     };
 
     const handleEdit = (p) => {
-        setProjectInput({ ...p, techStack: p.techStack.join(", ") });
+        const normalized = Array.isArray(p.techStack) ? p.techStack.join(", ") : "";
+        setProjectInput({ ...p, techStack: normalized });
         setEditingProjectId(p.id);
     };
 
     const handleDelete = (id) => {
-        setProfile({ ...profile, projects: profile.projects.filter((proj) => proj.id !== id) });
+        setProfile(prev => ({ ...prev, projects: prev.projects.filter((proj) => proj.id !== id) }));
     };
 
     return (
@@ -47,7 +49,7 @@ const ProjectsEditor = () => {
                 onSave={handleSaveProject}
                 onCancel={() => {
                     setEditingProjectId(null);
-                    setProjectInput({ ...projectSchema, id: crypto.randomUUID() });
+                    setProjectInput({ ...projectSchema, id: generateId() });
                 }}
                 isEditing={!!editingProjectId}
             />

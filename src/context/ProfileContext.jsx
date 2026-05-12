@@ -5,9 +5,26 @@ import { loadProfile, saveProfile } from "../lib/storage";
 export const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
-    // Hydrate state on app load
+    // Hydrate state on app load with deep merge to ensure all default fields exist
     const [profile, setProfile] = useState(() => {
-        return loadProfile() || defaultProfile;
+        const loaded = loadProfile();
+        if (!loaded) return defaultProfile;
+
+        // Deep merge loaded data onto defaultProfile to ensure all nested fields exist
+        return {
+            ...defaultProfile,
+            ...loaded,
+            hero: { ...defaultProfile.hero, ...(loaded.hero || {}) },
+            theme: { ...defaultProfile.theme, ...(loaded.theme || {}) },
+            skills: loaded.skills || defaultProfile.skills,
+            projects: loaded.projects || defaultProfile.projects,
+            experience: loaded.experience || defaultProfile.experience,
+            education: loaded.education || defaultProfile.education,
+            certifications: loaded.certifications || defaultProfile.certifications,
+            achievements: loaded.achievements || defaultProfile.achievements,
+            socialLinks: loaded.socialLinks || defaultProfile.socialLinks,
+            sectionOrder: loaded.sectionOrder || defaultProfile.sectionOrder,
+        };
     });
 
     // Autosave on profile changes

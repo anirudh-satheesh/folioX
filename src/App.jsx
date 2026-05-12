@@ -81,8 +81,8 @@ function App() {
             <button onClick={increaseZoom} className="w-8 h-8 flex items-center justify-center bg-white rounded-xl border border-gray-100 text-xs font-black shadow-sm hover:border-black transition-all">+</button>
             <span className="w-[1px] h-4 bg-gray-300 ml-2 mr-2"></span>
             {isWebMode && (
-              <button 
-                onClick={() => setMobileView(!mobileView)} 
+              <button
+                onClick={() => setMobileView(prev => !prev)}
                 className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${mobileView ? 'bg-black text-white' : 'bg-white text-gray-500 hover:text-black border border-gray-100'}`}
               >
                 {mobileView ? "Mobile" : "Desktop"}
