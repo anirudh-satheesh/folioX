@@ -17,56 +17,69 @@ function TemplateTwo({ profileData }) {
     const primary = theme?.primary || "#000000";
     const background = theme?.background || "#ffffff";
 
+    const sectionRenderers = {
+        skills: () => (
+            <div key="skills" className="mb-12">
+                <h2 className="text-xl font-bold mb-4 uppercase tracking-tighter" style={{ color: primary }}>Expertise</h2>
+                <div className="flex flex-wrap gap-2">
+                    {skills?.map((s, i) => (
+                        <span key={i} className="text-sm border-b-2" style={{ borderColor: primary }}>{s}</span>
+                    ))}
+                </div>
+            </div>
+        ),
+        projects: () => (
+            <div key="projects" className="mb-12">
+                <h2 className="text-xl font-bold mb-6 uppercase tracking-tighter" style={{ color: primary }}>Work</h2>
+                <div className="space-y-8">
+                    {projects?.map(p => (
+                        <div key={p.id}>
+                            <h3 className="font-bold text-lg">{p.title}</h3>
+                            <p className="text-gray-500 text-sm mb-2">{p.description}</p>
+                            <div className="flex gap-4 text-xs font-bold uppercase tracking-widest">
+                                {p.github && <a href={p.github} target="_blank" rel="noopener noreferrer" className="hover:underline">Code</a>}
+                                {p.liveDemo && <a href={p.liveDemo} target="_blank" rel="noopener noreferrer" className="hover:underline">Live</a>}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        ),
+        experience: () => (
+            <div key="experience" className="mb-12">
+                <h2 className="text-xl font-bold mb-6 uppercase tracking-tighter" style={{ color: primary }}>Experience</h2>
+                <div className="space-y-6">
+                    {experience?.map(e => (
+                        <div key={e.id} className="flex justify-between items-start">
+                            <div>
+                                <h3 className="font-bold">{e.role}</h3>
+                                <p className="text-gray-500 text-sm">{e.company}</p>
+                            </div>
+                            <span className="text-xs font-mono text-gray-400">{e.duration}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        ),
+        // Placeholders for other sections if needed
+        education: () => education?.length > 0 && (
+            <div key="education" className="mb-12">
+                <h2 className="text-xl font-bold mb-6 uppercase tracking-tighter" style={{ color: primary }}>Education</h2>
+                <div className="space-y-4">
+                    {education.map(edu => (
+                        <div key={edu.id}>
+                            <h3 className="font-bold">{edu.degree}</h3>
+                            <p className="text-gray-500 text-sm">{edu.school}, {edu.year}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )
+    };
+
     const renderSection = (id) => {
-        switch(id) {
-            case "skills":
-                return (
-                    <div key={id} className="mb-12">
-                        <h2 className="text-xl font-bold mb-4 uppercase tracking-tighter" style={{ color: primary }}>Expertise</h2>
-                        <div className="flex flex-wrap gap-2">
-                            {skills?.map((s, i) => (
-                                <span key={i} className="text-sm border-b-2" style={{ borderColor: primary }}>{s}</span>
-                            ))}
-                        </div>
-                    </div>
-                );
-            case "projects":
-                return (
-                    <div key={id} className="mb-12">
-                        <h2 className="text-xl font-bold mb-6 uppercase tracking-tighter" style={{ color: primary }}>Work</h2>
-                        <div className="space-y-8">
-                            {projects?.map(p => (
-                                <div key={p.id}>
-                                    <h3 className="font-bold text-lg">{p.title}</h3>
-                                    <p className="text-gray-500 text-sm mb-2">{p.description}</p>
-                                    <div className="flex gap-4 text-xs font-bold uppercase tracking-widest">
-                                        {p.github && <a href={p.github} target="_blank" rel="noopener noreferrer" className="hover:underline">Code</a>}
-                                        {p.liveDemo && <a href={p.liveDemo} target="_blank" rel="noopener noreferrer" className="hover:underline">Live</a>}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                );
-            case "experience":
-                return (
-                    <div key={id} className="mb-12">
-                        <h2 className="text-xl font-bold mb-6 uppercase tracking-tighter" style={{ color: primary }}>Experience</h2>
-                        <div className="space-y-6">
-                            {experience?.map(e => (
-                                <div key={e.id} className="flex justify-between items-start">
-                                    <div>
-                                        <h3 className="font-bold">{e.role}</h3>
-                                        <p className="text-gray-500 text-sm">{e.company}</p>
-                                    </div>
-                                    <span className="text-xs font-mono text-gray-400">{e.duration}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                );
-            default: return null;
-        }
+        const renderer = sectionRenderers[id];
+        return renderer ? renderer() : null;
     };
 
     return (
