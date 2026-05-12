@@ -1,40 +1,23 @@
 import { useProfile } from "../context/ProfileContext";
-import TemplateOne from "../templates/resume/TemplateOne";
-import TemplateTwo from "../templates/resume/TemplateTwo";
-import WebTemplateOne from "../templates/website/WebTemplateOne";
-import WebTemplateTwo from "../templates/website/WebTemplateTwo";
+import { getTemplate } from "../core/templateRegistry";
 
 function Preview() {
   const { profile } = useProfile();
 
-  const renderTemplate = () => {
-    if (profile.mode === "portfolio") {
-      switch (profile.selectedTemplate) {
-        case "one":
-          return <WebTemplateOne profileData={profile} />;
-        case "two":
-          return <WebTemplateTwo profileData={profile} />;
-        default:
-          return <WebTemplateOne profileData={profile} />;
-      }
-    }
-
-    // Resume Mode
-    switch (profile.selectedTemplate) {
-      case "one":
-        return <TemplateOne profileData={profile} />;
-      case "two":
-        return <TemplateTwo profileData={profile} />;
-      default:
-        return <TemplateOne profileData={profile} />;
-    }
-  };
+  const selectedTemplate = getTemplate(profile.mode, profile.selectedTemplate);
+  const TemplateComponent = selectedTemplate?.component;
 
   const isWebMode = profile.mode === "portfolio";
 
   return (
     <div className={`min-h-screen transition-all duration-500 bg-white ${isWebMode ? 'p-0 w-full' : 'p-10'}`}>
-      {renderTemplate()}
+      {TemplateComponent ? (
+        <TemplateComponent profileData={profile} />
+      ) : (
+        <div className="flex items-center justify-center h-full text-gray-400 font-bold uppercase tracking-widest">
+          Template Not Found
+        </div>
+      )}
     </div>
   );
 }

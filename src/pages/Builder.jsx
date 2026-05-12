@@ -1,23 +1,27 @@
 import { useProfile } from "../context/ProfileContext";
 import { Reorder } from "framer-motion";
 import { sectionRegistry } from "../core/sectionRegistry";
+import { templateRegistry } from "../core/templateRegistry";
 import { SectionCard } from "../components/ui/fields";
 
 function Builder() {
   const { profile, setProfile } = useProfile();
+  
+  // Filter templates based on current mode (Resume vs Website)
+  const availableTemplates = templateRegistry.filter(t => t.mode === profile.mode);
   
   return (
     <div className="pb-24">
       {/* MODE SELECTOR */}
       <div className="flex bg-gray-100 p-1.5 rounded-2xl mb-8">
         <button 
-          onClick={() => setProfile({ ...profile, mode: 'portfolio' })}
+          onClick={() => setProfile({ ...profile, mode: 'portfolio', selectedTemplate: 'one' })}
           className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all ${profile.mode === 'portfolio' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}
         >
           Website
         </button>
         <button 
-          onClick={() => setProfile({ ...profile, mode: 'resume' })}
+          onClick={() => setProfile({ ...profile, mode: 'resume', selectedTemplate: 'one' })}
           className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all ${profile.mode === 'resume' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}
         >
           Resume
@@ -25,31 +29,21 @@ function Builder() {
       </div>
 
       {/* TEMPLATE PICKER */}
-      <SectionCard title="Templates" badge="New">
+      <SectionCard title="Templates" badge={availableTemplates.length.toString()}>
         <div className="grid grid-cols-2 gap-3">
-          <button 
-            onClick={() => setProfile({ ...profile, selectedTemplate: 'one' })}
-            className={`p-1 rounded-2xl border-2 transition-all ${profile.selectedTemplate === 'one' ? 'border-black' : 'border-transparent'}`}
-          >
-            <div className="aspect-[4/3] bg-gradient-to-br from-gray-900 to-blue-900 rounded-xl flex items-center justify-center">
-              <span className="text-white text-[10px] font-black uppercase">Template One</span>
-            </div>
-          </button>
-          <button 
-            onClick={() => setProfile({ ...profile, selectedTemplate: 'two' })}
-            className={`p-1 rounded-2xl border-2 transition-all ${profile.selectedTemplate === 'two' ? 'border-black' : 'border-transparent'}`}
-          >
-            <div className="aspect-[4/3] bg-[#0a0a0a] border border-gray-800 rounded-xl flex items-center justify-center overflow-hidden relative">
-               <div className="w-1/3 h-full border-r border-gray-800 bg-black flex items-center justify-center relative z-10">
-                 <div className="w-4 h-1 bg-gray-700 rounded-full" />
-               </div>
-               <div className="flex-1 p-2 space-y-1 relative z-10">
-                 <div className="w-full h-1 bg-gray-800 rounded-full" />
-                 <div className="w-2/3 h-1 bg-gray-800 rounded-full" />
-               </div>
-               <span className="absolute bottom-2 right-2 text-white/50 text-[8px] font-black uppercase z-20">Template Two</span>
-            </div>
-          </button>
+          {availableTemplates.map((template) => (
+            <button 
+              key={template.id}
+              onClick={() => setProfile({ ...profile, selectedTemplate: template.id })}
+              className={`p-1 rounded-2xl border-2 transition-all text-left ${profile.selectedTemplate === template.id ? 'border-black' : 'border-transparent'}`}
+            >
+              <div className={`aspect-[4/3] rounded-xl flex flex-col items-center justify-center p-4 relative overflow-hidden bg-gray-50 border border-gray-100 group`}>
+                <div className="w-full h-full absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity bg-gradient-to-br from-black to-gray-500" />
+                <span className="text-[10px] font-black uppercase tracking-wider text-center relative z-10">{template.name}</span>
+                <div className="mt-2 w-8 h-1 bg-black/10 rounded-full relative z-10" />
+              </div>
+            </button>
+          ))}
         </div>
       </SectionCard>
 
