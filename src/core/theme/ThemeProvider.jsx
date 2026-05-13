@@ -37,12 +37,13 @@ export const ThemeProvider = ({ children, initialThemeId = 'midnight' }) => {
     }));
   };
 
-  const value = {
+  // Memoize value to avoid unnecessary rerenders
+  const value = React.useMemo(() => ({
     theme: currentTheme,
     setTheme,
     updateTheme,
     presets: themePresets,
-  };
+  }), [currentTheme]);
 
   return (
     <ThemeContext.Provider value={value}>

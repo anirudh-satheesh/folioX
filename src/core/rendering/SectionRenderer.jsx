@@ -7,6 +7,11 @@ import { useProfile } from '../../context/ProfileContext';
  * Responsibility: Resolve and render the correct section component based on the active template and data.
  */
 const SectionRenderer = ({ section, profileData, templateId: manualTemplateId }) => {
+  if (typeof section !== 'string' || !section) {
+    console.warn(`Invalid section prop passed to SectionRenderer: ${section}`);
+    return null;
+  }
+
   const { profile } = useProfile();
   
   // Use manual override if provided, otherwise fallback to current profile template

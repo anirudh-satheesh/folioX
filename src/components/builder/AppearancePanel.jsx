@@ -21,18 +21,33 @@ const AppearancePanel = () => {
   };
 
   const handleRadiusChange = (e) => {
-    const val = e.target.value + 'px';
-    updateTheme({ radius: { card: val, button: (e.target.value * 0.75) + 'px' } });
+    const val = parseInt(e.target.value) || 0;
+    const cardPx = `${val}px`;
+    const buttonPx = `${Math.round(val * 0.75)}px`;
+    updateTheme({ radius: { card: cardPx, button: buttonPx } });
   };
 
   const handleShadowChange = (e) => {
-    const val = e.target.value;
-    const shadow = `0 ${val}px ${val * 4}px rgba(0,0,0,${val * 0.02})`;
+    const val = parseInt(e.target.value) || 0;
+    // Improved alpha calculation: base 0.05 + scaled term, clamped
+    const alpha = Math.min(0.05 + (val * 0.02), 0.4);
+    const shadow = `0 ${val}px ${val * 4}px rgba(0,0,0,${alpha.toFixed(2)})`;
     updateTheme({ shadow: { card: shadow } });
   };
 
+  const isColorDark = (color) => {
+    if (!color) return false;
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    // Perceived brightness formula
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness < 128;
+  };
+
   const toggleDarkMode = () => {
-    const isDark = currentTheme.colors.background === '#0f0f0f' || currentTheme.colors.background === '#000000';
+    const isDark = isColorDark(currentTheme.colors.background);
     if (isDark) {
       updateTheme({ 
         colors: { 
@@ -106,7 +121,7 @@ const AppearancePanel = () => {
             </div>
             <input 
               type="range" min="0" max="20" 
-              defaultValue="5"
+              value={Math.round((parseInt(currentTheme.shadow.card?.split(' ')[1]) || 0))}
               onChange={handleShadowChange}
               className="w-full accent-black h-1 bg-gray-100 rounded-lg appearance-none cursor-pointer"
             />

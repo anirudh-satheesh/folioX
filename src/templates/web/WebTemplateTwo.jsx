@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { useTheme } from '../../core/theme/ThemeProvider';
 import { SectionRenderer } from '../../core/rendering/SectionRenderer';
 import { registerSection } from '../../core/rendering/sectionComponentRegistry';
@@ -61,7 +60,13 @@ function WebTemplateTwo({ profileData }) {
     };
 
     return (
-        <div className="w-full min-h-screen relative overflow-x-hidden" style={{ backgroundColor, color: textColor, selectionColor: primary }}>
+        <div className="w-full min-h-screen relative overflow-x-hidden" style={{ backgroundColor, color: textColor }}>
+            <style>{`
+                ::selection {
+                    background: ${primary};
+                    color: ${backgroundColor};
+                }
+            `}</style>
             {/* Grain overlay */}
             <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[100]" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
 
@@ -117,7 +122,11 @@ function WebTemplateTwo({ profileData }) {
                         initial="hidden" whileInView="visible" viewport={{ once: true }}
                         variants={fadeUp} custom={0.2}
                     >
-                        <a href="mailto:hello@example.com" className="inline-block px-10 py-5 rounded-full text-xs font-black uppercase tracking-widest text-black hover:scale-105 active:scale-95 transition-all" style={{ backgroundColor: primary }}>
+                        <a 
+                            href={profileData?.email ? `mailto:${profileData.email}` : '#'} 
+                            className="inline-block px-10 py-5 rounded-full text-xs font-black uppercase tracking-widest text-black hover:scale-105 active:scale-95 transition-all" 
+                            style={{ backgroundColor: primary }}
+                        >
                             Say Hello
                         </a>
                     </motion.div>

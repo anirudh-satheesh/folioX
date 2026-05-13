@@ -7,8 +7,9 @@
  */
 
 export const serializeToHTML = (profileData, templateComponent, themeVars) => {
+    // TODO: Final implementation will use profileData and templateComponent to render actual markup
     // 1. Generate CSS from themeVars
-    const cssVars = Object.entries(themeVars)
+    const cssVars = Object.entries(themeVars || {})
         .map(([key, value]) => `${key}: ${value};`)
         .join('\n');
 
@@ -22,6 +23,7 @@ export const serializeToHTML = (profileData, templateComponent, themeVars) => {
         }
         body {
             -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
     `;
 

@@ -107,7 +107,7 @@ export const WebTwoProjects = ({ profileData }) => {
                         <motion.div
                             key={p.id}
                             initial="hidden" whileInView="visible" viewport={{ once: true }}
-                            variants={fadeUp} custom={0.1}
+                            variants={fadeUp} custom={i * 0.1}
                             className="group"
                         >
                             <div className="relative overflow-hidden rounded-3xl mb-8 bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/5">
@@ -298,7 +298,7 @@ export const WebTwoHero = ({ profileData }) => {
                     <span className="text-sm font-black uppercase tracking-[0.3em] opacity-40">{hero?.greeting || "Hello World"}</span>
                 </div>
                 <h1 className="text-6xl lg:text-8xl font-black mb-10 leading-[0.9]">
-                    I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">{name || "A Developer"}</span>
+                    I'm <span className="text-transparent bg-clip-text" style={{ backgroundImage: `linear-gradient(to right, ${primary}, #a78bfa)` }}>{name || "A Developer"}</span>
                 </h1>
                 <p className="text-2xl lg:text-3xl font-medium text-gray-500 leading-relaxed">
                     {hero?.title || "Bridging the gap between complex logic and elegant design."}
