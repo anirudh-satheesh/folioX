@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { useTheme } from '../../core/theme/ThemeProvider';
 import { SectionRenderer } from '../../core/rendering/SectionRenderer';
 import { registerSection } from '../../core/rendering/sectionComponentRegistry';
