@@ -23,7 +23,11 @@ export const ProfileProvider = ({ children }) => {
             certifications: loaded.certifications || defaultProfile.certifications,
             achievements: loaded.achievements || defaultProfile.achievements,
             socialLinks: loaded.socialLinks || defaultProfile.socialLinks,
-            sectionOrder: loaded.sectionOrder || defaultProfile.sectionOrder,
+            // Merge sectionOrder: Use loaded order but ensure all default sections are present
+            sectionOrder: loaded.sectionOrder 
+                ? [...new Set([...loaded.sectionOrder, ...defaultProfile.sectionOrder])]
+                : defaultProfile.sectionOrder,
+            visibleSections: { ...defaultProfile.visibleSections, ...(loaded.visibleSections || {}) },
         };
     });
 

@@ -2,7 +2,7 @@ export const defaultProfile = {
     name: "",
     bio: "",
     resumeUrl: "",
-    selectedTemplate: "one",
+    selectedTemplate: "web-one",
     mode: "portfolio", // 'portfolio' (website) or 'resume' (A4)
     
     hero: {
@@ -26,7 +26,18 @@ export const defaultProfile = {
     achievements: [],
     socialLinks: [],
     
-    sectionOrder: ["experience", "skills", "projects", "achievements", "certifications", "education"]
+    sectionOrder: ["hero", "basics", "experience", "skills", "projects", "achievements", "certifications", "education", "social"],
+    visibleSections: {
+        hero: true,
+        basics: true,
+        experience: true,
+        skills: true,
+        projects: true,
+        achievements: true,
+        certifications: true,
+        education: true,
+        social: true
+    }
 };
 
 export const projectSchema = {

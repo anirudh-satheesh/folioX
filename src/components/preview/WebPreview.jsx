@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { useProfile } from "../context/ProfileContext";
-import { getTemplate } from "../core/templateRegistry";
+import { useProfile } from "../../context/ProfileContext";
+import { getTemplate } from "../../core/templateRegistry";
 
 // Iframe wrapper for isolated CSS and real viewport simulation
 const Frame = ({ children, className }) => {
