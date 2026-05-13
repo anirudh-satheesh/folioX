@@ -4,11 +4,14 @@ import App from "./App";
 import "./styles/index.css";
 
 import { ProfileProvider } from "./context/ProfileContext";
+import { ThemeProvider } from "./core/theme/ThemeProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ProfileProvider>
-      <App />
-    </ProfileProvider>
+    <ThemeProvider>
+      <ProfileProvider>
+        <App />
+      </ProfileProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

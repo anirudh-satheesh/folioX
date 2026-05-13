@@ -1,5 +1,5 @@
-import { useProfile } from "../context/ProfileContext";
-import { getTemplate } from "../core/templateRegistry";
+import { useProfile } from "../../context/ProfileContext";
+import { getTemplate } from "../../core/templateRegistry";
 
 export const ResumePreview = ({ zoom }) => {
   const { profile } = useProfile();

@@ -1,6 +1,6 @@
 import { useProfile } from "../context/ProfileContext";
-import { WebPreview } from "./WebPreview";
-import { ResumePreview } from "./ResumePreview";
+import { WebPreview } from "../components/preview/WebPreview";
+import { ResumePreview } from "../components/preview/ResumePreview";
 
 /**
  * Preview Dispatcher

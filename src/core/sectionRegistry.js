@@ -1,12 +1,12 @@
-import HeroEditor from "../components/sections/HeroEditor";
-import BasicsEditor from "../components/sections/BasicsEditor";
-import SkillsEditor from "../components/sections/SkillsEditor";
-import ProjectsEditor from "../components/sections/ProjectsEditor";
-import ExperienceEditor from "../components/sections/ExperienceEditor";
-import EducationEditor from "../components/sections/EducationEditor";
-import CertificationsEditor from "../components/sections/CertificationsEditor";
-import AchievementsEditor from "../components/sections/AchievementsEditor";
-import SocialEditor from "../components/sections/SocialEditor";
+import HeroEditor from "../components/editor/HeroEditor";
+import BasicsEditor from "../components/editor/BasicsEditor";
+import SkillsEditor from "../components/editor/SkillsEditor";
+import ProjectsEditor from "../components/editor/ProjectsEditor";
+import ExperienceEditor from "../components/editor/ExperienceEditor";
+import EducationEditor from "../components/editor/EducationEditor";
+import CertificationsEditor from "../components/editor/CertificationsEditor";
+import AchievementsEditor from "../components/editor/AchievementsEditor";
+import SocialEditor from "../components/editor/SocialEditor";
 
 export const sectionRegistry = {
     hero: {

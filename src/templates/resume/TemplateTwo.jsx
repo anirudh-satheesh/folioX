@@ -1,10 +1,12 @@
 import React from 'react';
+import { useTheme } from '../../core/theme/ThemeProvider';
 
 function TemplateTwo({ profileData }) {
+    const globalTheme = useTheme();
     const { 
         name, 
         bio, 
-        theme, 
+        theme: localTheme, 
         hero, 
         skills, 
         projects, 
@@ -14,8 +16,12 @@ function TemplateTwo({ profileData }) {
         sectionOrder 
     } = profileData;
 
-    const primary = theme?.primary || "#000000";
-    const background = theme?.background || "#ffffff";
+    // Use global theme values, fallback to local theme or defaults
+    const primary = globalTheme.colors.primary || localTheme?.primary || "#000000";
+    const background = globalTheme.colors.background || localTheme?.background || "#ffffff";
+    const textColor = globalTheme.colors.text || "#000000";
+    const surfaceColor = globalTheme.colors.surface || "#ffffff";
+    const mutedColor = globalTheme.colors.muted || "#666666";
 
     const sectionRenderers = {
         skills: () => (
@@ -83,7 +89,7 @@ function TemplateTwo({ profileData }) {
     };
 
     return (
-        <div className="flex min-h-screen bg-white text-black font-mono">
+        <div className="flex min-h-screen font-mono" style={{ backgroundColor: background, color: textColor }}>
             {/* LEFT SIDEBAR */}
             <aside className="w-1/3 p-12 border-r border-gray-100 flex flex-col justify-between sticky top-0 h-screen">
                 <div>
