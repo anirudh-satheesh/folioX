@@ -24,11 +24,7 @@ const SectionRenderer = ({ section, profileData, templateId: manualTemplateId })
   // Resolve component from registry
   const TemplateSpecificComponent = sectionComponentRegistry[section]?.[activeTemplateId];
   
-  // If no template-specific component is found, we might want a fallback or just return null
-  if (!TemplateSpecificComponent) {
-    console.warn(`No component registered for section "${section}" in template "${activeTemplateId}"`);
-    return null;
-  }
+  if (!TemplateSpecificComponent) return null;
 
   return <TemplateSpecificComponent profileData={profileData || profile} />;
 };
