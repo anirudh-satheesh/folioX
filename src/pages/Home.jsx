@@ -324,9 +324,9 @@ const Home = () => {
           </div>
 
           <div className="flex gap-8 text-[11px] font-black uppercase tracking-widest text-gray-500">
-            <a href="#" className="hover:text-black transition-colors">GitHub</a>
-            <a href="#" className="hover:text-black transition-colors">Twitter</a>
-            <a href="#" className="hover:text-black transition-colors">Documentation</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">GitHub</a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Twitter</a>
+            <a href="/docs" className="hover:text-black transition-colors">Documentation</a>
           </div>
         </div>
       </footer>
